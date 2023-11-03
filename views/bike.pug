@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  .container-fluid
+    .row
+      - 
+        let results = [
+          { bike_name: "R15", bike_mielage: "25", bike_maker: "Yamaha", bike_year: 2012 },
+          { bike_name: "Splender", bike_mielage: "40", bike_maker: "Hero", bike_year: 2014 },
+          { bike_name: "Heavy Duty", bike_mielage: "60", bike_maker: "TVS", bike_year: 2016 }
+        ]
+      each item, index in results
+        .col-sm-2(onclick=`buy(${index})`)
+          div.bike_name= item.bike_name
+          div.bike_mielage= item.bike_mielage
+          div.bike_maker= item.bike_maker
+          div.bike_year= item.bike_year
+
+  script.
+    function buy(index) {
+      alert(`You purchased item ${index}.`);
+    }
