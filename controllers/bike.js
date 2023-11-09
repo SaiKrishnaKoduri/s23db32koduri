@@ -19,3 +19,15 @@ res.send('NOT IMPLEMENTED: Bike delete DELETE ' + req.params.id);
 exports.bike_update_put = function(req, res) {
 res.send('NOT IMPLEMENTED: Bike update PUT' + req.params.id);
 };
+
+// List of all Bike
+exports.bike_list = async function(req, res) {
+    try{
+    theBike = await Bike.find();
+    res.send(theBike);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
