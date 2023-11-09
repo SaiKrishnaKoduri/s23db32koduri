@@ -31,3 +31,16 @@ exports.bike_list = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
     };
+
+    // VIEWS
+// Handle a show all view
+exports.bike_view_all_Page = async function(req, res) {
+    try{
+    theBike = await Bike.find();
+    res.render('bike', { title: 'Bike Search Results', results: theBike });
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
