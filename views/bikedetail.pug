@@ -2,29 +2,31 @@ extends layout
 
 block content
   h1= title
-  - let bikeid = toShow._id
-  - let bikename = toShow.bike_name
-  - let bikemielage = toShow.bike_mielage
-  - let bikemaker = toShow.bike_maker
-  - let bikeyear = toShow.bike_year
+
+  - let bike = toShow
+  - let bikeid = bike._id
+  - let bikename = bike.bike_name
+  - let bikemielage = bike.bike_mielage
+  - let bikemaker = bike.bike_maker
+  - let bikeyear = bike.bike_year
 
   div
-    div.row
-      div(class='bikeAttr mr-3') Bike id is:
-      div #{bikeid}
+    div.row(style='background-color: #f2f2f2; border: 1px solid #99aabb; padding: 10px;')
+      div(class='bikeAttr mr-3') Bike ID:
+      div(style='background-color: #fff; padding: 5px; border: 1px solid #ccc; border-color: #aabbcc;') #{bikeid}
 
-    div.row
-      div(class='bikeAttr mr-3') Bike name is:
-      div #{bikename}
+    div.row(style='background-color: #f9f9f9; border: 1px solid #aabb99; padding: 10px;')
+      div(class='bikeAttr mr-3') Bike Name:
+      div(style='background-color: #fff; padding: 5px; border: 1px solid #ccc; border-color: #bbccaa;') #{bikename}
     
-    div.row
-      div(class='bikeAttr mr-3') Bike mileage is:
-      div #{bikemielage}
+    div.row(style='background-color: #f2f2f2; border: 1px solid #bbccaa; padding: 10px;')
+      div(class='bikeAttr mr-3') Bike Mielage:
+      div(style='background-color: #fff; padding: 5px; border: 1px solid #ccc; border-color: #ccaabb;') #{bikemielage}
 
-    div.row
-      div(class='bikeAttr mr-3') Bike maker is:
-      div #{bikemaker}
+    div.row(style='background-color: #f9f9f9; border: 1px solid #ccaabb; padding: 10px;')
+      div(class='bikeAttr mr-3') Bike Maker:
+      div(style='background-color: #fff; padding: 5px; border: 1px solid #ccc; border-color: #bb99cc;') #{bikemaker}
 
-    div.row
-      div(class='bikeAttr mr-3') Bike year is:
-      div #{bikeyear}
+    div.row(style='background-color: #f2f2f2; border: 1px solid #bb99cc; padding: 10px;')
+      div(class='bikeAttr mr-3') Bike Year:
+      div(style='background-color: #fff; padding: 5px; border: 1px solid #ccc; border-color: #99aabb;') #{bikeyear}
