@@ -10,3 +10,5 @@ router.get('/bike/:id', bike_controlers.bike_detail);
 router.get('/detail', bike_controlers.bike_view_one_Page);
 /* GET create costume page */
 router.get('/create', bike_controlers.bike_create_Page);
+/* GET create update page */
+router.get('/update', bike_controlers.bike_update_Page);

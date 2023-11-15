@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  h1= title
+
+  - let bikeid = toShow._id
+  - let bikename = toShow.bike_name
+  - let bikemielage = toShow.bike_mielage
+  - let bikemaker = toShow.bike_maker 
+  - let bikeyear = toShow.bike_year
+
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{bikeid}
+
+  - let actionid = "/resource/bike/" + bikeid
+
+  form(id='BikeForm', action= actionid, method="PUT")
+    div.form-group
+      label.bikeAttr(for='bike_name') Bike name
+      input#bike_name(type='text', name='bike_name', value=bike_name)
+
+    div.form-group
+      label.bikeAttr(for='bike_mielage') Bike mileage
+      input#bike_mielage(type='number', name='bike_mielage', value=bike_mielage)
+
+    div.form-group
+      label.bikeAttr(for='bike_maker') Bike maker
+      input#bike_maker(type='text', name='bike_maker', value=bike_maker)
+
+    div.form-group
+      label.bikeAttr(for='bike_year') Bike year
+      input#bike_year(type='number', name='bike_year', value=bike_Year)
+
+    input(type="submit")
+
+  script.
+    document.forms['BikeForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Update succeeded");
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Update failed " + error);
+      });
+    });
