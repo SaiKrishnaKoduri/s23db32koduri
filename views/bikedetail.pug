@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  h1= title
+  - let bikeid = toShow._id
+  - let bikename = toShow.bike_name
+  - let bikemielage = toShow.bike_mielage
+  - let bikemaker = toShow.bike_maker
+  - let bikeyear = toShow.bike_year
+
+  div
+    div.row
+      div(class='bikeAttr mr-3') Bike id is:
+      div #{bikeid}
+
+    div.row
+      div(class='bikeAttr mr-3') Bike name is:
+      div #{bikename}
+    
+    div.row
+      div(class='bikeAttr mr-3') Bike mileage is:
+      div #{bikemielage}
+
+    div.row
+      div(class='bikeAttr mr-3') Bike maker is:
+      div #{bikemaker}
+
+    div.row
+      div(class='bikeAttr mr-3') Bike year is:
+      div #{bikeyear}

@@ -1,23 +1,23 @@
 const bike = require('../models/bike');
 var Bike = require('../models/bike');
 // List of all Bikes
-exports.bike_list = function(req, res) {
-res.send('NOT IMPLEMENTED: Bike list');
+exports.bike_list = function (req, res) {
+    res.send('NOT IMPLEMENTED: Bike list');
 };
 // for a specific Bike.
-exports.bike_detail = async function(req, res) {
+exports.bike_detail = async function (req, res) {
     console.log("detail" + req.params.id)
     try {
-    result = await Bike.findById( req.params.id)
-    res.send(result)
+        result = await Bike.findById(req.params.id)
+        res.send(result)
     } catch (error) {
-    res.status(500)
-    res.send(`{"error": document for id ${req.params.id} not found`);
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
     }
-    };
-    
+};
+
 // Handle Costume create on POST.
-exports.bike_create_post = async function(req, res) {
+exports.bike_create_post = async function (req, res) {
     console.log(req.body)
     let document = new Bike();
     // We are looking for a body, since POST does not have query parameters.
@@ -27,71 +27,98 @@ exports.bike_create_post = async function(req, res) {
     document.bike_name = req.body.bike_name;
     document.bike_mielage = req.body.bike_mielage;
     document.bike_maker = req.body.bike_maker;
-    try{
-    let result = await document.save();
-    res.send(result);
+    try {
+        let result = await document.save();
+        res.send(result);
     }
-    catch(err){
-    res.status(500);
-    res.send(`{"error": ${err}}`);
+    catch (err) {
+        res.status(500);
+        res.send(`{"error": ${err}}`);
     }
-    };
-    
+};
+
 // Handle Bike delete on DELETE.
-exports.bike_delete = async function(req, res) {
+exports.bike_delete = async function (req, res) {
     console.log("delete " + req.params.id)
     try {
-    result = await Bike.findByIdAndDelete( req.params.id)
-    console.log("Removed " + result)
-    res.send(result)
+        result = await Bike.findByIdAndDelete(req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
     } catch (err) {
-    res.status(500)
-    res.send(`{"error": Error deleting ${err}}`);
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
     }
-    };
+};
 
 // Handle Costume update form on PUT.
-exports.bike_update_put = async function(req, res) {
-console.log(`update on id ${req.params.id} with body
+exports.bike_update_put = async function (req, res) {
+    console.log(`update on id ${req.params.id} with body
 ${JSON.stringify(req.body)}`)
-try {
-let toUpdate = await Bike.findById( req.params.id)
-// Do updates of properties
-if(req.body.bike_name) toUpdate.bike_name = req.body.bike_name;
-if(req.body.bike_mielage) toUpdate.bike_mielage = req.body.bike_mielage;
-if(req.body.bike_maker) toUpdate.bike_maker = req.body.bike_maker;
-if(req.body.bike_year) toUpdate.bike_year = req.body.bike_year;
-let result = await toUpdate.save();
-console.log("Sucess " + result)
-res.send(result)
-} catch (err) {
-res.status(500)
-res.send(`{"error": ${err}: Update for id ${req.params.id}
+    try {
+        let toUpdate = await Bike.findById(req.params.id)
+        // Do updates of properties
+        if (req.body.bike_name) toUpdate.bike_name = req.body.bike_name;
+        if (req.body.bike_mielage) toUpdate.bike_mielage = req.body.bike_mielage;
+        if (req.body.bike_maker) toUpdate.bike_maker = req.body.bike_maker;
+        if (req.body.bike_year) toUpdate.bike_year = req.body.bike_year;
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id}
 failed`);
-}
+    }
 };
 
 // List of all Bike
-exports.bike_list = async function(req, res) {
-    try{
-    theBike = await Bike.find();
-    res.send(theBike);
+exports.bike_list = async function (req, res) {
+    try {
+        theBike = await Bike.find();
+        res.send(theBike);
     }
-    catch(err){
-    res.status(500);
-    res.send(`{"error": ${err}}`);
+    catch (err) {
+        res.status(500);
+        res.send(`{"error": ${err}}`);
     }
-    };
+};
 
-    // VIEWS
+// VIEWS
 // Handle a show all view
-exports.bike_view_all_Page = async function(req, res) {
-    try{
-    theBike = await Bike.find();
-    res.render('bike', { title: 'Bike Search Results', results: theBike });
+exports.bike_view_all_Page = async function (req, res) {
+    try {
+        theBike = await Bike.find();
+        res.render('bike', { title: 'Bike Search Results', results: theBike });
     }
-    catch(err){
-    res.status(500);
-    res.send(`{"error": ${err}}`);
+    catch (err) {
+        res.status(500);
+        res.send(`{"error": ${err}}`);
     }
-    };
+};
+
+// Handle a show one view with id specified by query
+exports.bike_view_one_Page = async function (req, res) {
+    console.log("single view for id " + req.query.id)
+    try {
+        result = await Bike.findById(req.query.id)
+        res.render('bikedetail',
+            { title: 'Bike Detail', toShow: result });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.bike_create_Page = function (req, res) {
+    console.log("create view")
+    try {
+        res.render('bikecreate', { title: 'Bike Create' });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};

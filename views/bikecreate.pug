@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  h1= title
+  form(id='BikeForm', action="/resource/bike", method="POST")
+    div.form-group
+      label.bikeAttr(for='bike_name') Bike name
+      input#bike_name(type='text', name='bike_name')
+    div.form-group
+      label.bikeAttr(for='bike_mielage') Bike mileage
+      input#bike_mielage(type='number', name='bike_mielage')
+    div.form-group
+      label.bikeAttr(for='bike_maker') Bike maker
+      input#bike_maker(type='text', name='bike_maker')
+    div.form-group
+      label.bikeAttr(for='bike_year') Bike year
+      input#bike_year(type='number', name='bike_year')
+    input(type="submit")
+  script.
+    document.forms['BikeForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show the user that the form is being submitted
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Save succeeded");
+        // TODO handle the body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Save failed " + error);
+      });
+    });

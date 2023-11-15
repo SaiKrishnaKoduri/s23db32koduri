@@ -6,3 +6,7 @@ router.get('/', bike_controlers.bike_view_all_Page );
 module.exports = router;
 // GET request for one costume.
 router.get('/bike/:id', bike_controlers.bike_detail);
+/* GET detail costume page */
+router.get('/detail', bike_controlers.bike_view_one_Page);
+/* GET create costume page */
+router.get('/create', bike_controlers.bike_create_Page);
