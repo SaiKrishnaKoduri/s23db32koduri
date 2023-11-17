@@ -4,16 +4,20 @@ block content
   h1= title
   .container-fluid
     .row
-      - 
-        let result = results 
+      - let result = results 
       each item, index in result
         .col-sm-2(onclick=`buy(${index})`)
           div.bike_name= item.bike_name
           div.bike_mielage= item.bike_mielage
           div.bike_maker= item.bike_maker
           div.bike_year= item.bike_year
+          - let destination = `dispatch(\"/costumes/update?id=${item._id}\")`
+          button.btn( class="btn-primary ml-1", onclick= destination) Update
 
   script.
     function buy(index) {
       alert(`You purchased item ${index}.`);
+    }
+    function dispatch(path){
+      window.location.href=path
     }
