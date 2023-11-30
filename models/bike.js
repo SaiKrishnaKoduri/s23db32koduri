@@ -5,7 +5,10 @@ bike_mielage: { type: Number,
     min: 10,
     max: 100,
 },
-    bike_maker: String,
+    bike_maker: { type: String,
+        minlength: 0,
+        maxlength: 15,
+    },
     bike_year: Number
 })
 module.exports = mongoose.model("Bike", bikeSchema)
